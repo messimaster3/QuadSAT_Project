@@ -121,7 +121,7 @@ def viewDataSetWithOutRedDot(latitude, longitude, relative_altitude):
     plt.show()
 
 
-    #Valid input/command: "python3 main.py dataFiles/drone_2021-09-12-16-13-35.csv 1 7"
+    #Valid input/command: "python3 main.py dataFiles/cvsFiles/drone_2021-09-12-16-13-35.csv 1 7"
 
 if __name__ == "__main__":
     pathToFile = sys.argv[1] # First commandline arguments # Path ex: dataFiles/drone_2021-09-12-16-13-35.csv
