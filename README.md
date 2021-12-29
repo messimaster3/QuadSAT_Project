@@ -7,3 +7,5 @@ Install all dependencies from the requirements.txt, this can be done via pip.
 
 When all dependencies are installed, type: "python GUI.py" to run the program
 
+### NOTE: 
+All errors are printed to the terminal
