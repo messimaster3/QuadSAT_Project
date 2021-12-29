@@ -9,7 +9,7 @@ import main
 startView=[
     [
         sg.Text("View CSV file"),
-        sg.In (size =(25,1), enable_events=True, key="-FILE-"), 
+        sg.In (size =(25,1), key="-FILE-"), 
         sg.FileBrowse(),
     ],
     [
@@ -18,7 +18,7 @@ startView=[
     ],
     [
         sg.Text("Inter number of times the data should be pruned"),
-        sg.In (enable_events= True, key ="-NUMBEROFPRUNE-")
+        sg.In (key ="-NUMBEROFPRUNE-")
     ],
     [
         sg.Text("Estimate the time the play back will take in minutes, with the current prune number"),
