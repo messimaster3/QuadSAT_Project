@@ -1,4 +1,3 @@
-import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -123,16 +122,16 @@ def viewDataSetWithOutRedDot(latitude, longitude, relative_altitude):
 
     #Valid input/command: "python3 main.py dataFiles/cvsFiles/drone_2021-09-12-16-13-35.csv 1 7"
 
-if __name__ == "__main__":
-    pathToFile = sys.argv[1] # First commandline arguments # Path ex: dataFiles/drone_2021-09-12-16-13-35.csv
-    viewRedDot = int(sys.argv[2]) # Second commandline arguments # reds dots on = 1, off = 0
-    scaleDown = int(sys.argv[3]) # Thrid commandline arguments # numberofpruning (to view 317 lines of rosdata takes 21 sec)
+    # First argument # Path ex: dataFiles/drone_2021-09-12-16-13-35.csv
+    # Second argument # reds dots on = True, off = False
+    # Thrid arguments # numberofpruning (to view 317 lines of rosdata takes 21 sec)
 
-    latitude, longitude, relative_altitude = readCSVFileAndPrep(pathToFile)
+def ViewCVSFile (path: str, redDots: bool, NumberOfScaleDown: int): 
+    latitude, longitude, relative_altitude = readCSVFileAndPrep(path)
     
-    resLatitude, resLongitude, resRelative_altitude = pruneDataSet(latitude, longitude, relative_altitude, scaleDown)
+    resLatitude, resLongitude, resRelative_altitude = pruneDataSet(latitude, longitude, relative_altitude, NumberOfScaleDown)
 
-    if viewRedDot:
+    if redDots:
         viewRosbagWithRedDots(resLatitude, resLongitude, resRelative_altitude)
     else:
         viewDataSetWithOutRedDot(resLatitude, resLongitude, resRelative_altitude)
