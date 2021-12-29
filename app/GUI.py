@@ -8,17 +8,22 @@ import main
 # view start view
 startView=[
     [
-        sg.Text("View RosBag"),
+        sg.Text("View CSV file"),
         sg.In (size =(25,1), enable_events=True, key="-FILE-"), 
         sg.FileBrowse(),
     ],
     [
-        sg.Text("Place a red dot, for every datapoint viewed for the RosFile"),
+        sg.Text("Place a red dot, for every datapoint viewed for the CSV file"),
         sg.CB("Red dots", key="-REDDOTS-")
     ],
     [
         sg.Text("Inter number of times the data should be pruned"),
         sg.In (enable_events= True, key ="-NUMBEROFPRUNE-")
+    ],
+    [
+        sg.Text("Estimate the time the play back will take in minutes, with the current prune number"),
+        sg.B("Check",enable_events=True, key="-CHECKTIME-"),
+        sg.Text(key ="-OUTPUT-")
     ],
     [
         sg.Text("Run program: "),
@@ -52,6 +57,27 @@ while True:
                 raise TypeError("The number of scaledown must be a int")
             numberOfScaleDownInt = int(numberOfScaleDown)
             main.ViewCVSFile(path, redDots, numberOfScaleDownInt)
+        except TypeError as error:
+            print(error)
+    elif event == "-CHECKTIME-":
+        try:
+            # create function that returns a string number, that show how many rows are in csv fil
+             # type str
+            path = values["-FILE-"]
+            # Check to see if the last 3 letters is cvs
+            if path[-3:] != "csv":
+                raise TypeError("The selected file is a not a cvs file")
+            numberOfRows = main.countRowsInCSV(path)
+            numberOfScaleDown = values["-NUMBEROFPRUNE-"]
+            # Checks to see if the input is a number
+            if not numberOfScaleDown.isdigit():
+                raise TypeError("The number of scaledown must be a int")
+            numberOfScaleDownInt = int(numberOfScaleDown)
+            rowsAfterPrune = numberOfRows * 0.5 ** numberOfScaleDownInt
+            # Takes 21 seconds to show 317 rows of data
+            # Around 15 rows pr. second
+            playBackTime = (rowsAfterPrune / 15) / 60
+            window["-OUTPUT-"].update(playBackTime)
         except TypeError as error:
             print(error)
 

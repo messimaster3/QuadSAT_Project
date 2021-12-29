@@ -136,6 +136,11 @@ def ViewCVSFile (path: str, redDots: bool, NumberOfScaleDown: int):
     else:
         viewDataSetWithOutRedDot(resLatitude, resLongitude, resRelative_altitude)
 
+def countRowsInCSV(path):
+
+    df = pd.read_csv(path)
+
+    return len(df.index)
 
 
 
