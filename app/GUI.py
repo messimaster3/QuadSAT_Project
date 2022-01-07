@@ -13,11 +13,11 @@ startView=[
         sg.FileBrowse(),
     ],
     [
-        sg.Text("Place a red dot, for every datapoint viewed for the CSV file"),
+        sg.Text("Place a red dot, for every data point viewed in the CSV file"),
         sg.CB("Red dots", key="-REDDOTS-")
     ],
     [
-        sg.Text("Inter number of times the data should be pruned"),
+        sg.Text("Enter the number of times the data should be pruned"),
         sg.In (key ="-NUMBEROFPRUNE-")
     ],
     [
