@@ -1,7 +1,5 @@
 # GUI.py
 
-from typing import Sized
-from typing_extensions import TypeGuard
 import PySimpleGUI as sg
 import main 
 
