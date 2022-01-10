@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from mpl_toolkits.mplot3d import Axes3D
 
-# Takes a cvs file, reads the data and puts into 3 np arrays.
+# Takes the path to a csv file, reads the data and puts into 3 np arrays.
 # Returns 3 np arrays
 def readCSVFileAndPrep(path):
     latitude = []
@@ -22,11 +22,13 @@ def readCSVFileAndPrep(path):
 
     return latitude, longitude, relative_altitude
 
-    # Takes a list a removes every second element in list (helper function to pruneDataSet)
+    # Takes a list and removes every second element in list (helper function to pruneDataSet)
+    # Returns a list
 def pruneList(listToPrune):
     return np.delete(listToPrune, np.arange(0, listToPrune.size, 2))
 
-    # Takes the dataset and makes it half the size. The is numberOfPrune times. 
+    # Takes the dataset and makes it half the size. The is done numberOfPrune times.
+    # Returns 3 lists
 def pruneDataSet(latitude, longitude, relative_altitude, numberOfPrune):
     
     print("Prune latitude")
@@ -39,7 +41,7 @@ def pruneDataSet(latitude, longitude, relative_altitude, numberOfPrune):
         pruned_longitude = pruneList(longitude)
         longitude = pruned_longitude
     
-    print("relativ alititude")
+    print("Prune relativ alititude")
     for x in range(numberOfPrune):
         pruned_altitude = pruneList(relative_altitude)
         relative_altitude = pruned_altitude
@@ -48,7 +50,6 @@ def pruneDataSet(latitude, longitude, relative_altitude, numberOfPrune):
 
 # ANIMATION FUNCTION: Helper function to viewRosbagWithRedDots()
 def funcWithRedDots(num, dataSet, line, redDots):
-    # NOTE: there is no .set_data() for 3 dim data...
     line.set_data(dataSet[0:2, :num])    
     line.set_3d_properties(dataSet[2, :num])    
     redDots.set_data(dataSet[0:2, :num])    
@@ -68,26 +69,22 @@ def viewRosbagWithRedDots(latitude, longitude, relative_altitude):
     fig = plt.figure()
     ax = Axes3D(fig)
     redDots = plt.plot(dataSet[0], dataSet[1], dataSet[2], lw=2, c='r', marker='o')[0] # For scatter plot
-    # NOTE: Can't pass empty arrays into 3d version of plot()
     line = plt.plot(dataSet[0], dataSet[1], dataSet[2], lw=2, c='g')[0] # For line plot
 
-    # AXES PROPERTIES]
-    # ax.set_xlim3d([limit0, limit1])
+    # AXES PROPERTIES
     ax.set_xlabel('Latitude')
-    ax.set_ylabel('Longtude')
+    ax.set_ylabel('Longitude')
     ax.set_zlabel('Relative altitude')
     ax.set_title('Drone flight')
 
     # Creating the Animation object
     line_ani = animation.FuncAnimation(fig, funcWithRedDots, frames=numDataPoints, fargs=(dataSet,line,redDots), interval=50, blit=False)
-    #line_ani.save(r'Animation.mp4')
-  
+ 
     plt.show()
 
 
     # ANIMATION FUNCTION: Helper function to viewDataSetWithOutRedDot()
 def funcWithOutRedDots(num, dataSet, line):
-    # NOTE: there is no .set_data() for 3 dim data...
     line.set_data(dataSet[0:2, :num])    
     line.set_3d_properties(dataSet[2, :num])    
     return line
@@ -103,24 +100,19 @@ def viewDataSetWithOutRedDot(latitude, longitude, relative_altitude):
     # GET SOME MATPLOTLIB OBJECTS
     fig = plt.figure()
     ax = Axes3D(fig)
-    # NOTE: Can't pass empty arrays into 3d version of plot()
     line = plt.plot(dataSet[0], dataSet[1], dataSet[2], lw=2, c='g')[0] # For line plot
 
-    # AXES PROPERTIES]
-    # ax.set_xlim3d([limit0, limit1])
+    # AXES PROPERTIES
     ax.set_xlabel('Latitude')
-    ax.set_ylabel('Longtude')
+    ax.set_ylabel('Longitude')
     ax.set_zlabel('Relative altitude')
     ax.set_title('Drone flight')
 
     # Creating the Animation object
     line_ani = animation.FuncAnimation(fig, funcWithOutRedDots, frames=numDataPoints, fargs=(dataSet,line), interval=50, blit=False)
-    #line_ani.save(r'Animation.mp4')
-  
+
     plt.show()
 
-
-    #Valid input/command: "python3 main.py dataFiles/cvsFiles/drone_2021-09-12-16-13-35.csv 1 7"
 
     # First argument # Path ex: dataFiles/drone_2021-09-12-16-13-35.csv
     # Second argument # reds dots on = True, off = False
@@ -136,6 +128,7 @@ def ViewCVSFile (path: str, redDots: bool, NumberOfScaleDown: int):
     else:
         viewDataSetWithOutRedDot(resLatitude, resLongitude, resRelative_altitude)
 
+# Counts the rows in the provide CSV file
 def countRowsInCSV(path):
 
     df = pd.read_csv(path)

@@ -59,8 +59,6 @@ while True:
             print(error)
     elif event == "-CHECKTIME-":
         try:
-            # create function that returns a string number, that show how many rows are in csv fil
-             # type str
             path = values["-FILE-"]
             # Check to see if the last 3 letters is cvs
             if path[-3:] != "csv":
