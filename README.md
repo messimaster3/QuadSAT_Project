@@ -8,7 +8,7 @@ This a program that can show csv files in 3d.
 The program was original designed to view RosBag files, however to my seaching that is no python model for python3, that can convert a ROSbag to a CSV file.
 This can however be done very easy on Ubuntu just using this command : rostopic echo -b "BAGFILE" -p "topic" > "FILENAME.csv"
 
-Example of command, (This is the specific command used on ROSbags files, from QuadSAT):
+Example of command (This is the specific command used on ROSbags files, from QuadSAT):
 
 rostopic echo -b drone_2021-09-15-21-54-36.bag -p /FCU/GPS_Int_Data > drone_2021-09-15-21-54-36.csv
 
