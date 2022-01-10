@@ -9,6 +9,7 @@ The program was original designed to view RosBag files, however to my seaching t
 This can however be done very easy on Ubuntu just using this command : rostopic echo -b "BAGFILE" -p "topic" > "FILENAME.csv"
 
 Example of command: (This is the specific command used on ROSbags files, from QuadSAT)
+
 rostopic echo -b drone_2021-09-15-21-54-36.bag -p /FCU/GPS_Int_Data > drone_2021-09-15-21-54-36.csv
 
 
